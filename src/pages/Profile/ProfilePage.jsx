@@ -17,7 +17,8 @@ import Avatar from '../../components/common/Avatar';
 import CoverBanner from '../../components/common/CoverBanner';
 
 const ProfilePage = () => {
-  const { user, updateProfile } = useApp();
+  const { user, userRole, updateProfile, becomeAlumnus } = useApp();
+  const [promoting, setPromoting] = useState(false);
   const navigate = useNavigate();
 
   // ---------- Inline Headline editing ----------
@@ -487,6 +488,18 @@ const ProfilePage = () => {
                   </Button>
                 </>
               )}
+              <Button onClick={handleCopyLink} variant="glass" size="sm" className="gap-1.5 py-2 px-3 text-xs">
+                {copied ? <FiCheck size={14} className="text-[#166534]" /> : <FiLink size={14} />}
+                {copied ? 'Copied URL' : 'Copy Portfolio'}
+              </Button>
+              {userRole !== 'Senior/Alumni' && (
+                <Button onClick={handleBecomeAlumnus} disabled={promoting} variant="secondary" size="sm" className="gap-1.5 py-2 px-3 text-xs">
+                  <FiBriefcase size={14} /> {promoting ? 'Updating…' : 'Become Alumnus'}
+                </Button>
+              )}
+              <Button variant="primary" size="sm" className="gap-1.5 py-2 px-3 text-xs">
+                <FiDownload size={14} /> Resume
+              </Button>
             </div>
           </div>
         </div>
